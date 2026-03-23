@@ -850,9 +850,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 For questions, suggestions, or collaboration opportunities:
 
 - **Project**: AI E-Learning Analytics Platform
-- **Author**: Your Name
-- **Email**: your.email@example.com
-- **GitHub**: @yourusername
+- **Author**: Vishv Bhavsar
+- **Email**: vishvbhavsar2004@gmail.com
+- **GitHub**: Vishv05
 
 ---
 
@@ -894,9 +894,9 @@ python Backend/tools/migrate_sqlite_users_to_mongo.py
 For questions, suggestions, or collaboration opportunities:
 
 - **Project**: AI E-Learning Analytics Platform
-- **Author**: Your Name
-- **Email**: your.email@example.com
-- **GitHub**: @yourusername
+- **Author**: Vishv Bhavsar
+- **Email**: vishvbhavsar2004@gmail.com
+- **GitHub**: Vishv05
 
 ---
 
