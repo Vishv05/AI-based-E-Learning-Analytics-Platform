@@ -406,7 +406,7 @@ Your contributions make this project better. We appreciate:
 **Project Maintainers:**
 - Name: Vishv Bhavsar
 - Email: vishvbhavsar2004@gmail.com
-- GitHub: Vishv05
+- GitHub: https://github.com/Vishv05
 
 ---
 
