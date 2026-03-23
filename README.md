@@ -852,7 +852,7 @@ For questions, suggestions, or collaboration opportunities:
 - **Project**: AI E-Learning Analytics Platform
 - **Author**: Vishv Bhavsar
 - **Email**: vishvbhavsar2004@gmail.com
-- **GitHub**: Vishv05
+- **GitHub**: https://github.com/Vishv05
 
 ---
 
@@ -896,7 +896,7 @@ For questions, suggestions, or collaboration opportunities:
 - **Project**: AI E-Learning Analytics Platform
 - **Author**: Vishv Bhavsar
 - **Email**: vishvbhavsar2004@gmail.com
-- **GitHub**: Vishv05
+- **GitHub**: https://github.com/Vishv05
 
 ---
 
