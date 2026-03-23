@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - AI E-Learning Analytics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .courses-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            margin-left: 250px;
+        }
+        
+        .courses-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .courses-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 0 30px 30px 30px;
+        }
+        
+        .filter-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .filter-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #ecf0f1;
+            background: white;
+            color: #2c3e50;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .trending-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .trending-badge {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .course-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff6b6b;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            display: none;
+        }
+        
+        .course-badge.trending {
+            display: block;
+        }
+        
+        .course-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .course-category {
+            color: #667eea;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        
+        .course-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .course-description {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            flex: 1;
+        }
+        
+        .course-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ecf0f1;
+            font-size: 13px;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #7f8c8d;
+        }
+        
+        .meta-item i {
+            color: #667eea;
+        }
+        
+        .course-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .course-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .stars {
+            color: #ffc107;
+            font-size: 13px;
+        }
+        
+        .rating-count {
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+        
+        .enroll-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .enroll-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .difficulty-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-right: 5px;
+        }
+        
+        .difficulty-beginner {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .difficulty-intermediate {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .difficulty-advanced {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .market-trend-notice {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .market-trend-notice i {
+            font-size: 24px;
+        }
+        
+        .market-trend-text h4 {
+            margin: 0 0 5px 0;
+            font-weight: 700;
+        }
+        
+        .market-trend-text p {
+            margin: 0;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        .no-courses {
+            text-align: center;
+            padding: 40px 20px;
+            color: #7f8c8d;
+        }
+        
+        .no-courses i {
+            font-size: 48px;
+            color: #bdc3c7;
+            margin-bottom: 15px;
+        }
+        
+        .category-section {
+            margin-bottom: 40px;
+        }
+
+        .recommendation-note {
+            font-size: 12px;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-graduation-cap"></i>
+            <h4>AI E-Learning</h4>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/courses">
+                    <i class="fas fa-book"></i> Courses
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/analytics">
+                    <i class="fas fa-chart-bar"></i> Analytics
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/predictions">
+                    <i class="fas fa-brain"></i> AI Predictions
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/profile">
+                    <i class="fas fa-user-circle"></i> My Profile
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="courses-header">
+        <h1><i class="fas fa-book-open"></i> Explore Courses</h1>
+        <p>Upskill yourself with our comprehensive course library designed for today's market demands</p>
+    </div>
+
+    <div class="main-content">
+        <!-- Market Trend Notice -->
+        <div class="market-trend-notice">
+            <i class="fas fa-rocket"></i>
+            <div class="market-trend-text">
+                <h4>Live Course Suggestions</h4>
+                <p>Trending and personalized recommendations are generated from learner activity to help you pick the best next course.</p>
+            </div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-title">
+                <i class="fas fa-filter"></i> Filter by Category
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterCourses('all')">All Courses</button>
+                <button class="filter-btn" onclick="filterCourses('web')">Web Development</button>
+                <button class="filter-btn" onclick="filterCourses('data')">Data Science</button>
+                <button class="filter-btn" onclick="filterCourses('ml')">AI & Machine Learning</button>
+                <button class="filter-btn" onclick="filterCourses('cloud')">Cloud Computing</button>
+                <button class="filter-btn" onclick="filterCourses('mobile')">Mobile Apps</button>
+            </div>
+        </div>
+
+        <!-- Trending Courses Section -->
+        <div class="trending-section">
+            <div class="section-title">
+                <i class="fas fa-fire"></i> Trending This Month
+                <span class="trending-badge">NEW</span>
+            </div>
+            <div class="courses-grid" id="trending-courses">
+                <!-- Trending courses will be populated here -->
+            </div>
+        </div>
+
+        <div class="trending-section">
+            <div class="section-title">
+                <i class="fas fa-bullseye"></i> Recommended For You Right Now
+            </div>
+            <div class="courses-grid" id="recommended-courses">
+                <!-- Recommended courses will be populated here -->
+            </div>
+        </div>
+
+        <!-- All Courses by Category -->
+        <div id="courses-container">
+            <!-- Courses will be populated here -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Dummy course data
+        const coursesData = {
+            trending: [
+                {
+                    id: 1,
+                    title: "Prompt Engineering & AI Integration",
+                    category: "AI & Machine Learning",
+                    categoryKey: "ml",
+                    description: "Master the art of crafting effective prompts for modern AI models",
+                    icon: "fa-brain",
+                    difficulty: "Intermediate",
+                    duration: "4 weeks",
+                    rating: 4.9,
+                    reviews: 2340,
+                    trending: true,
+                    marketTrend: true
+                },
+                {
+                    id: 2,
+                    title: "Cloud Native Architecture with Kubernetes",
+                    category: "Cloud Computing",
+                    categoryKey: "cloud",
+                    description: "Design and deploy scalable cloud-native applications",
+                    icon: "fa-cloud",
+                    difficulty: "Advanced",
+                    duration: "6 weeks",
+                    rating: 4.8,
+                    reviews: 1890,
+                    trending: true,
+                    marketTrend: true
+                },
+                {
+                    id: 3,
+                    title: "Full Stack Development with Modern Frameworks",
+                    category: "Web Development",
+                    categoryKey: "web",
+                    description: "Build complete web applications with latest technologies",
+                    icon: "fa-code",
+                    difficulty: "Intermediate",
+                    duration: "8 weeks",
+                    rating: 4.7,
+                    reviews: 3210,
+                    trending: true,
+                    marketTrend: true
+                }
+            ],
+            web: [
+                {
+                    id: 4,
+                    title: "React.js Advanced Patterns",
+                    category: "Web Development",
+                    categoryKey: "web",
+                    description: "Master advanced React patterns and best practices",
+                    icon: "fa-react",
+                    difficulty: "Advanced",
+                    duration: "5 weeks",
+                    rating: 4.6,
+                    reviews: 1540,
+                    trending: false,
+                    marketTrend: true
+                },
+                {
+                    id: 5,
+                    title: "Vue.js Fundamentals",
+                    category: "Web Development",
+                    categoryKey: "web",
+                    description: "Get started with Vue.js for building interactive UIs",
+                    icon: "fa-code",
+                    difficulty: "Beginner",
+                    duration: "3 weeks",
+                    rating: 4.5,
+                    reviews: 980,
+                    trending: false,
+                    marketTrend: false
+                },
+                {
+                    id: 6,
+                    title: "Backend API Development with Node.js",
+                    category: "Web Development",
+                    categoryKey: "web",
+                    description: "Create robust REST and GraphQL APIs using Node.js",
+                    icon: "fa-code",
+                    difficulty: "Intermediate",
+                    duration: "6 weeks",
+                    rating: 4.7,
+                    reviews: 2120,
+                    trending: false,
+                    marketTrend: true
+                }
+            ],
+            data: [
+                {
+                    id: 7,
+                    title: "Data Analytics with Python",
+                    category: "Data Science",
+                    categoryKey: "data",
+                    description: "Analyze and visualize data using Python and popular libraries",
+                    icon: "fa-chart-bar",
+                    difficulty: "Intermediate",
+                    duration: "5 weeks",
+                    rating: 4.6,
+                    reviews: 1670,
+                    trending: false,
+                    marketTrend: true
+                },
+                {
+                    id: 8,
+                    title: "SQL for Data Analysis",
+                    category: "Data Science",
+                    categoryKey: "data",
+                    description: "Master SQL queries for extracting insights from databases",
+                    icon: "fa-database",
+                    difficulty: "Beginner",
+                    duration: "4 weeks",
+                    rating: 4.4,
+                    reviews: 1230,
+                    trending: false,
+                    marketTrend: false
+                },
+                {
+                    id: 9,
+                    title: "Big Data Processing with Spark",
+                    category: "Data Science",
+                    categoryKey: "data",
+                    description: "Process large-scale datasets efficiently using Apache Spark",
+                    icon: "fa-fire",
+                    difficulty: "Advanced",
+                    duration: "7 weeks",
+                    rating: 4.8,
+                    reviews: 890,
+                    trending: false,
+                    marketTrend: true
+                }
+            ],
+            ml: [
+                {
+                    id: 10,
+                    title: "Deep Learning Fundamentals",
+                    category: "AI & Machine Learning",
+                    categoryKey: "ml",
+                    description: "Build neural networks from scratch and understand deep learning",
+                    icon: "fa-brain",
+                    difficulty: "Advanced",
+                    duration: "8 weeks",
+                    rating: 4.9,
+                    reviews: 1450,
+                    trending: false,
+                    marketTrend: true
+                },
+                {
+                    id: 11,
+                    title: "Computer Vision with OpenCV",
+                    category: "AI & Machine Learning",
+                    categoryKey: "ml",
+                    description: "Build vision applications using OpenCV and deep learning",
+                    icon: "fa-brain",
+                    difficulty: "Advanced",
+                    duration: "6 weeks",
+                    rating: 4.7,
+                    reviews: 1120,
+                    trending: false,
+                    marketTrend: true
+                },
+                {
+                    id: 12,
+                    title: "Natural Language Processing Essentials",
+                    category: "AI & Machine Learning",
+                    categoryKey: "ml",
+                    description: "Process and analyze text using NLP and transformers",
+                    icon: "fa-brain",
+                    difficulty: "Intermediate",
+                    duration: "5 weeks",
+                    rating: 4.8,
+                    reviews: 1890,
+                    trending: false,
+                    marketTrend: true
+                }
+            ],
+            cloud: [
+                {
+                    id: 13,
+                    title: "AWS Solutions Architect Professional",
+                    category: "Cloud Computing",
+                    categoryKey: "cloud",
+                    description: "Design and deploy reliable AWS solutions at scale",
+                    icon: "fa-cloud",
+                    difficulty: "Advanced",
+                    duration: "7 weeks",
+                    rating: 4.7,
+                    reviews: 2340,
+                    trending: false,
+                    marketTrend: true
+                },
+                {
+                    id: 14,
+                    title: "Azure for Beginners",
+                    category: "Cloud Computing",
+                    categoryKey: "cloud",
+                    description: "Get started with Microsoft Azure cloud services",
+                    icon: "fa-cloud",
+                    difficulty: "Beginner",
+                    duration: "4 weeks",
+                    rating: 4.5,
+                    reviews: 1560,
+                    trending: false,
+                    marketTrend: false
+                },
+                {
+                    id: 15,
+                    title: "DevOps & CI/CD Pipelines",
+                    category: "Cloud Computing",
+                    categoryKey: "cloud",
+                    description: "Master containerization and automated deployment practices",
+                    icon: "fa-cloud",
+                    difficulty: "Intermediate",
+                    duration: "6 weeks",
+                    rating: 4.8,
+                    reviews: 1780,
+                    trending: false,
+                    marketTrend: true
+                }
+            ],
+            mobile: [
+                {
+                    id: 16,
+                    title: "Flutter App Development",
+                    category: "Mobile Apps",
+                    categoryKey: "mobile",
+                    description: "Build cross-platform mobile apps using Flutter",
+                    icon: "fa-mobile",
+                    difficulty: "Intermediate",
+                    duration: "6 weeks",
+                    rating: 4.6,
+                    reviews: 1340,
+                    trending: false,
+                    marketTrend: true
+                },
+                {
+                    id: 17,
+                    title: "React Native Fundamentals",
+                    category: "Mobile Apps",
+                    categoryKey: "mobile",
+                    description: "Create native mobile apps using React and JavaScript",
+                    icon: "fa-mobile",
+                    difficulty: "Intermediate",
+                    duration: "5 weeks",
+                    rating: 4.5,
+                    reviews: 1120,
+                    trending: false,
+                    marketTrend: false
+                },
+                {
+                    id: 18,
+                    title: "iOS Development with Swift",
+                    category: "Mobile Apps",
+                    categoryKey: "mobile",
+                    description: "Build professional iOS applications using Swift",
+                    icon: "fa-mobile",
+                    difficulty: "Advanced",
+                    duration: "7 weeks",
+                    rating: 4.8,
+                    reviews: 980,
+                    trending: false,
+                    marketTrend: true
+                }
+            ]
+        };
+
+        const dynamicSuggestions = {
+            trending: [],
+            recommended: []
+        };
+
+        // Function to create course card HTML
+        function createCourseCard(course) {
+            const difficultyClass = `difficulty-${course.difficulty.toLowerCase()}`;
+            const encodedCourse = encodeURIComponent(JSON.stringify(course));
+            return `
+                <div class="course-card">
+                    <div class="course-image">
+                        <i class="fas ${course.icon}"></i>
+                        ${course.marketTrend ? '<span class="course-badge trending">TRENDING</span>' : ''}
+                    </div>
+                    <div class="course-body">
+                        <div class="course-category">${course.category}</div>
+                        <div class="course-title">${course.title}</div>
+                        <div class="course-description">${course.description}</div>
+                        ${course.recommendation_reason ? `<div class="recommendation-note"><i class="fas fa-lightbulb"></i> ${course.recommendation_reason}</div>` : ''}
+                        <div class="course-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                ${course.duration}
+                            </div>
+                            <div class="meta-item">
+                                <span class="difficulty-badge ${difficultyClass}">${course.difficulty}</span>
+                            </div>
+                        </div>
+                        <div class="course-footer">
+                            <div class="course-rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-count">${course.rating} (${course.reviews})</span>
+                            </div>
+                            <button class="enroll-btn" data-course="${encodedCourse}" onclick="enrollCourseFromEncoded(this.dataset.course)">Enroll</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to render courses
+        function renderCourses(category = 'all') {
+            const trendingContainer = document.getElementById('trending-courses');
+            const coursesContainer = document.getElementById('courses-container');
+            const iconMap = {
+                web: 'fa-code',
+                data: 'fa-chart-bar',
+                ml: 'fa-brain',
+                cloud: 'fa-cloud',
+                mobile: 'fa-mobile'
+            };
+            
+            // Clear containers
+            trendingContainer.innerHTML = '';
+            coursesContainer.innerHTML = '';
+
+            // Show trending courses (prefer dynamic API suggestions when available)
+            const trendingList = dynamicSuggestions.trending.length > 0 ? dynamicSuggestions.trending : coursesData.trending;
+            trendingContainer.innerHTML = trendingList
+                .map(course => createCourseCard(course))
+                .join('');
+
+            // Show personalized recommendations
+            const recommendedContainer = document.getElementById('recommended-courses');
+            if (dynamicSuggestions.recommended.length > 0) {
+                recommendedContainer.innerHTML = dynamicSuggestions.recommended
+                    .map(course => createCourseCard(course))
+                    .join('');
+            } else {
+                recommendedContainer.innerHTML = '<div class="no-courses"><i class="fas fa-compass"></i><h4>Personalized recommendations will appear here</h4><p>Enroll in a course to improve your next suggestions.</p></div>';
+            }
+
+            // Show all other courses
+            let allCourses = [];
+            if (category === 'all') {
+                allCourses = [
+                    ...coursesData.web,
+                    ...coursesData.data,
+                    ...coursesData.ml,
+                    ...coursesData.cloud,
+                    ...coursesData.mobile
+                ];
+            } else {
+                allCourses = coursesData[category] || [];
+            }
+
+            if (allCourses.length === 0) {
+                coursesContainer.innerHTML = '<div class="no-courses"><i class="fas fa-search"></i><h4>No courses found</h4><p>Try selecting a different category</p></div>';
+            } else {
+                // Group by category if showing all
+                if (category === 'all') {
+                    const categories = ['web', 'data', 'ml', 'cloud', 'mobile'];
+                    categories.forEach(catKey => {
+                        const catCourses = coursesData[catKey];
+                        if (catCourses.length > 0) {
+                            const categoryName = {
+                                web: 'Web Development',
+                                data: 'Data Science',
+                                ml: 'AI & Machine Learning',
+                                cloud: 'Cloud Computing',
+                                mobile: 'Mobile Apps'
+                            }[catKey];
+
+                            coursesContainer.innerHTML += `
+                                <div class="category-section">
+                                    <div class="section-title">
+                                        <i class="fas ${iconMap[catKey]}"></i>
+                                        ${categoryName}
+                                    </div>
+                                    <div class="courses-grid">
+                                        ${catCourses.map(course => createCourseCard(course)).join('')}
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    });
+                } else {
+                    coursesContainer.innerHTML = `<div class="courses-grid">${allCourses.map(course => createCourseCard(course)).join('')}</div>`;
+                }
+            }
+        }
+
+        // Filter function
+        function filterCourses(category) {
+            // Update button states
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            renderCourses(category);
+        }
+
+        // Enroll function
+        function enrollCourse(course) {
+            const params = new URLSearchParams({
+                course_name: course.title || '',
+                category: course.category || '',
+                category_key: course.categoryKey || '',
+                description: course.description || '',
+                icon: course.icon || 'fa-book',
+                difficulty: course.difficulty || 'Intermediate',
+                duration: course.duration || '6 weeks',
+                rating: String(course.rating || '4.7'),
+                reviews: String(course.reviews || '0'),
+                reason: course.recommendation_reason || ''
+            });
+
+            window.location.href = `/courses/enrollment?${params.toString()}`;
+        }
+
+        function enrollCourseFromEncoded(encodedCourse) {
+            try {
+                const course = JSON.parse(decodeURIComponent(encodedCourse));
+                enrollCourse(course);
+            } catch (error) {
+                alert(`Could not open course details: ${error.message}`);
+            }
+        }
+
+        function fetchCourseSuggestions() {
+            fetch('/api/courses/suggestions')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.success) {
+                        return;
+                    }
+                    dynamicSuggestions.trending = Array.isArray(data.trending) ? data.trending : [];
+                    dynamicSuggestions.recommended = Array.isArray(data.recommended) ? data.recommended : [];
+                    renderCourses('all');
+                })
+                .catch(() => {
+                    // Keep static fallback data if API request fails.
+                });
+        }
+
+        // Initial render
+        renderCourses('all');
+        fetchCourseSuggestions();
+    </script>
+</body>
+</html>

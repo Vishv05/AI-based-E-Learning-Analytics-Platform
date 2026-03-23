@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enrollment Details - AI E-Learning Analytics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .hero {
+            margin-left: 250px;
+            padding: 30px;
+            background: linear-gradient(135deg, #0f4c81 0%, #2f7db8 100%);
+            color: white;
+            border-radius: 0 0 24px 24px;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .enrollment-shell {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 18px;
+            padding: 26px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .course-banner {
+            background: linear-gradient(135deg, #1b1f3b 0%, #345995 100%);
+            border-radius: 16px;
+            padding: 28px;
+            color: white;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .course-banner i {
+            font-size: 40px;
+            width: 72px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: #d9f7e8;
+            color: #0f7a41;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .detail-card {
+            border: 1px solid #e9eef5;
+            border-radius: 12px;
+            padding: 14px 16px;
+        }
+
+        .detail-card .label {
+            color: #6b7280;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .detail-card .value {
+            color: #1f2937;
+            font-weight: 600;
+        }
+
+        .reason-box {
+            background: #f5f9ff;
+            border: 1px solid #d9e8ff;
+            color: #23406b;
+            border-radius: 14px;
+            padding: 16px;
+            margin-top: 18px;
+        }
+
+        .side-list {
+            display: grid;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .pill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .pill {
+            background: #eef4ff;
+            color: #23406b;
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .section-block {
+            margin-top: 22px;
+        }
+
+        .section-block h5 {
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .module-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .module-item {
+            border-left: 4px solid #2f7db8;
+            background: #f8fbff;
+            padding: 12px 14px;
+            border-radius: 0 12px 12px 0;
+            color: #334155;
+        }
+
+        .side-item {
+            border: 1px solid #e9eef5;
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .side-item i {
+            color: #2f7db8;
+            margin-top: 3px;
+        }
+
+        .action-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 22px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 900px) {
+            .hero,
+            .content {
+                margin-left: 0;
+            }
+
+            .enrollment-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-graduation-cap"></i>
+            <h4>AI E-Learning</h4>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/courses">
+                    <i class="fas fa-book"></i> Courses
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/analytics">
+                    <i class="fas fa-chart-bar"></i> Analytics
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/predictions">
+                    <i class="fas fa-brain"></i> AI Predictions
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/profile">
+                    <i class="fas fa-user-circle"></i> My Profile
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="hero">
+        <h1><i class="fas fa-clipboard-check"></i> Enrollment Details</h1>
+        <p>{{ user.name }}, your selected course has been recorded and the details are ready below.</p>
+    </div>
+
+    <div class="content">
+        <div class="enrollment-shell">
+            <div class="panel">
+                <div class="course-banner">
+                    <i class="fas {{ enrollment.icon }}"></i>
+                    <div>
+                        <span class="status-badge">{{ enrollment.status }}</span>
+                        <h2 style="margin: 12px 0 8px 0; font-weight: 700;">{{ enrollment.title }}</h2>
+                        <div style="opacity: 0.92;">{{ enrollment.category }}</div>
+                    </div>
+                </div>
+
+                <p style="color: #4b5563; line-height: 1.7;">{{ enrollment.description }}</p>
+
+                <div class="detail-grid">
+                    <div class="detail-card">
+                        <div class="label">Difficulty</div>
+                        <div class="value">{{ enrollment.difficulty }}</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="label">Estimated Duration</div>
+                        <div class="value">{{ enrollment.duration }}</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="label">Course Rating</div>
+                        <div class="value">{{ enrollment.rating }} / 5</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="label">Learner Reviews</div>
+                        <div class="value">{{ enrollment.reviews }}</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="label">Enrollment Time</div>
+                        <div class="value">{{ enrollment.enrolled_at }}</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="label">Student Account</div>
+                        <div class="value">{{ user.email }}</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="label">Instructor</div>
+                        <div class="value">{{ enrollment.instructor }}</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="label">Weekly Effort</div>
+                        <div class="value">{{ enrollment.weekly_hours }}</div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="label">Certificate</div>
+                        <div class="value">{{ enrollment.certificate }}</div>
+                    </div>
+                </div>
+
+                {% if enrollment.recommendation_reason %}
+                <div class="reason-box">
+                    <strong><i class="fas fa-lightbulb"></i> Why this course was suggested</strong>
+                    <div style="margin-top: 8px;">{{ enrollment.recommendation_reason }}</div>
+                </div>
+                {% endif %}
+
+                <div class="section-block">
+                    <h5>Skills You Will Build</h5>
+                    <div class="pill-list">
+                        {% for skill in enrollment.skills %}
+                        <span class="pill">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <h5>Course Modules</h5>
+                    <div class="module-list">
+                        {% for module in enrollment.modules %}
+                        <div class="module-item">{{ loop.index }}. {{ module }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <h5>Prerequisites</h5>
+                    <div class="pill-list">
+                        {% for item in enrollment.prerequisites %}
+                        <span class="pill">{{ item }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <h5>What You Can Do After This Course</h5>
+                    <div class="module-list">
+                        {% for outcome in enrollment.outcomes %}
+                        <div class="module-item">{{ outcome }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="action-row">
+                    <a href="/courses" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left"></i> Back to Courses
+                    </a>
+                    <a href="/dashboard" class="btn btn-primary">
+                        <i class="fas fa-home"></i> Go to Dashboard
+                    </a>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h4 style="font-weight: 700; color: #1f2937;">What happens next</h4>
+                <div class="side-list">
+                    <div class="side-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Enrollment recorded</strong>
+                            <div style="color: #6b7280; font-size: 14px;">Your course selection is stored for future recommendations.</div>
+                        </div>
+                    </div>
+                    <div class="side-item">
+                        <i class="fas fa-route"></i>
+                        <div>
+                            <strong>Suggestions get smarter</strong>
+                            <div style="color: #6b7280; font-size: 14px;">Future course suggestions will align with this learning path.</div>
+                        </div>
+                    </div>
+                    <div class="side-item">
+                        <i class="fas fa-chart-line"></i>
+                        <div>
+                            <strong>Progress can be tracked</strong>
+                            <div style="color: #6b7280; font-size: 14px;">Your selected course can be used in the next recommendation and analytics cycle.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

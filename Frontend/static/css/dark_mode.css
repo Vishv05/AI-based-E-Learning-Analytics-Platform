@@ -1,0 +1,292 @@
+/* Dark Mode Theme
+   Toggle between light and dark theme
+*/
+
+:root {
+  /* Light mode (default) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-tertiary: #fafafa;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --border-color: #e0e0e0;
+  --shadow-light: rgba(0, 0, 0, 0.08);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+  --card-bg: #ffffff;
+  --navbar-bg: #ffffff;
+  --navbar-text: #333333;
+  --accent-color: #667eea;
+  --success-color: #2ecc71;
+  --warning-color: #ff9800;
+  --danger-color: #f44336;
+}
+
+/* Dark mode */
+body.dark-mode {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --bg-tertiary: #333333;
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --text-muted: #808080;
+  --border-color: #404040;
+  --shadow-light: rgba(0, 0, 0, 0.3);
+  --shadow-medium: rgba(0, 0, 0, 0.5);
+  --card-bg: #2d2d2d;
+  --navbar-bg: #1f1f1f;
+  --navbar-text: #e0e0e0;
+  --accent-color: #8b9ef9;
+  --success-color: #66bb6a;
+  --warning-color: #ffa726;
+  --danger-color: #ef5350;
+}
+
+/* Apply theme to body and main elements */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--navbar-bg) !important;
+  color: var(--navbar-text);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px var(--shadow-light);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar-brand {
+  color: var(--accent-color) !important;
+  font-weight: bold;
+}
+
+.nav-link {
+  color: var(--text-primary) !important;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--accent-color) !important;
+}
+
+/* Cards */
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 2px 8px var(--shadow-light);
+}
+
+.card-header {
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.card-body {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+/* Forms */
+.form-control,
+.form-select {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.form-label {
+  color: var(--text-primary);
+}
+
+/* Buttons */
+.btn-light {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-light:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+/* Tables */
+table {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+.table {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: var(--bg-secondary);
+}
+
+.table-hover > tbody > tr:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.table-bordered,
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > td {
+  border-color: var(--border-color);
+}
+
+/* Modals */
+.modal-content {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.modal-header {
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.modal-body {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+}
+
+.close {
+  color: var(--text-primary);
+}
+
+/* Alerts */
+.alert-light {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.alert-info {
+  background-color: #e3f2fd;
+  color: #01579b;
+}
+
+body.dark-mode .alert-info {
+  background-color: #1a237e;
+  color: #90caf9;
+}
+
+/* Charts */
+canvas {
+  filter: invert(0);
+}
+
+body.dark-mode canvas {
+  filter: invert(0.85);
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-right: 1px solid var(--border-color);
+}
+
+.sidebar-item {
+  color: var(--text-primary);
+  text-decoration: none;
+  padding: 12px 20px;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-item:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--accent-color);
+}
+
+.sidebar-item.active {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+/* Code blocks */
+code,
+pre {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+pre {
+  padding: 12px;
+  overflow-x: auto;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 4px 12px var(--shadow-medium);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px var(--shadow-medium);
+}
+
+/* Loading state */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Transitions */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Remove transition from some elements to avoid flickers */
+.btn,
+.progress,
+.spinner-border {
+  transition: none;
+}
+
+/* Print styles */
+@media print {
+  body.dark-mode {
+    --bg-primary: #ffffff;
+    --text-primary: #000000;
+  }
+}
