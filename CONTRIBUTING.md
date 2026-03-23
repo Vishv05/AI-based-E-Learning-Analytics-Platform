@@ -404,9 +404,9 @@ Your contributions make this project better. We appreciate:
 ## 📞 Contact
 
 **Project Maintainers:**
-- Name: Project Lead
-- Email: [email@example.com](mailto:email@example.com)
-- GitHub: [@username](https://github.com/username)
+- Name: Vishv Bhavsar
+- Email: vishvbhavsar2004@gmail.com
+- GitHub: Vishv05
 
 ---
 
